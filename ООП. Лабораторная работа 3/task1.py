@@ -1,14 +1,30 @@
 class Book:
     """ Базовый класс книги. """
     def __init__(self, name: str, author: str):
-        self.__name = name
-        self.__author = author
+        self._name = name
+        self._author = author
 
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        self._name = name
+
+    @property
+    def author(self):
+        return self._author
+
+    @author.setter
+    def author(self, author: str):
+        self._author = author
+        
     def __str__(self):
-        return f"Книга {self.__name}. Автор {self.__author}"
+        return f"Книга {self._name}. Автор {self._author}"
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(name={self.__name!r}, author={self.__author!r})"
+        return f"{self.__class__.__name__}(name={self._name!r}, author={self._author!r})"
 
 
 class PaperBook(Book):
@@ -16,13 +32,19 @@ class PaperBook(Book):
         super().__init__(name, author)
         self.pages = pages
 
+    @property
+    def pages(self) -> int:
+        return self.pages
+
+    @pages.setter
+    def pages(self, pages: int) -> None:
         if not isinstance(pages, int):
             raise TypeError("Количество страниц должно быть целочисленным значением")
         if pages <= 0:
             raise ValueError("Количество страниц должно быть положительным значением")
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(name={self.__name!r}, author={self.__author!r}, pages={self.pages!r})"
+        return f"{self.__class__.__name__}(name={self._name!r}, author={self._author!r}, pages={self.pages!r})"
 
 
 class AudioBook(Book):
@@ -30,10 +52,17 @@ class AudioBook(Book):
         super().__init__(name, author)
         self.duration = duration
 
+    @property
+    def duration(self) -> float:
+        return self.duration
+
+    @duration.setter
+    def duration(self, duration: int) -> None:
         if not isinstance(duration, float):
             raise TypeError("Продолжительность аудиокниги должна быть числом с плавающей запятой")
         if duration <= 0:
             raise ValueError("Продолжительность аудиокниги должна быть положительным значением")
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(name={self.__name!r}, author={self.__author!r}, duration={self.duration!r})"
+        return f"{self.__class__.__name__}(name={self._name!r}, author={self._author!r}, duration={self.duration!r})"
+
